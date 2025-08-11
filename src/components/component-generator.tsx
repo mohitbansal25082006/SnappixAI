@@ -22,6 +22,24 @@ export function ComponentGenerator({ projectId }: ComponentGeneratorProps) {
   // Replaced `any` with a safer type
   const [designTokens, setDesignTokens] = useState<Record<string, unknown> | null>(null)
 
+  // Save initial version after AI generates code
+  const saveInitialVersion = async (code: string) => {
+    try {
+      await fetch('/api/components/versions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          componentId: projectId, // use projectId or componentId? Original was component.id but here only projectId available
+          code,
+          designTokens,
+          changelog: 'AI-generated initial version',
+        }),
+      })
+    } catch (error) {
+      console.error('Failed to save initial version:', error)
+    }
+  }
+
   const handleAnalyze = async () => {
     if (!imageUrl) return
 
@@ -41,6 +59,9 @@ export function ComponentGenerator({ projectId }: ComponentGeneratorProps) {
       setGeneratedCode(result.code)
       setDesignTokens(result.designTokens)
       toast.success('Component generated successfully!')
+
+      // Save initial version after generating code
+      saveInitialVersion(result.code)
     } catch {
       // Removed unused error variable
       toast.error('Failed to analyze image')

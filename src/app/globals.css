@@ -120,3 +120,12 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Monaco Editor theme fix */
+.monaco-editor {
+  background: hsl(var(--background)) !important;
+}
+
+.monaco-editor .margin {
+  background: hsl(var(--background)) !important;
+}
