@@ -57,28 +57,62 @@ export function LiveEditor({ component, initialCode, initialTokens }: LiveEditor
     '/App.tsx': code,
     '/index.tsx': `import React from 'react'
 import { createRoot } from 'react-dom/client'
+import './index.css'
 import App from './App'
 
 const container = document.getElementById('root')
 const root = createRoot(container!)
 root.render(<App />)`,
-    '/index.html': `<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Preview</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
-</html>`,
+    '/index.css': `/* Tailwind CSS */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Basic reset */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  padding: 1rem;
+}
+`,
+    '/tailwind.config.js': `/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+`,
+    '/package.json': `{
+  "name": "preview",
+  "version": "1.0.0",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tailwindcss": "^3.3.0"
+  }
+}
+`,
+    '/postcss.config.js': `module.exports = {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+}
+`,
   }
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-[calc(100vh-200px)]">
-      {/* Code Editor */}
+      {/* Code Editor - Full Height */}
       <div className="flex flex-col">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-semibold">Code Editor</h2>
@@ -94,7 +128,7 @@ root.render(<App />)`,
           </div>
         </div>
 
-        <Card className="flex-1">
+        <Card className="flex-1 min-h-0">
           <MonacoEditor
             height="100%"
             language="typescript"
@@ -106,12 +140,13 @@ root.render(<App />)`,
               fontSize: 14,
               wordWrap: 'on',
               automaticLayout: true,
+              scrollBeyondLastLine: false,
             }}
           />
         </Card>
       </div>
 
-      {/* Live Preview */}
+      {/* Live Preview - Full Height */}
       <div className="flex flex-col">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-semibold">Live Preview</h2>
@@ -121,18 +156,23 @@ root.render(<App />)`,
           </Button>
         </div>
 
-        <Card className="flex-1">
+        <Card className="flex-1 min-h-0">
           <SandpackProvider
             template="react-ts"
             files={files}
             options={{
               recompileDelay: 300,
               autorun: true,
+              externalResources: ['https://cdn.tailwindcss.com'],
             }}
             theme="dark"
           >
-            <div className="h-full">
-              <SandpackPreview showOpenInCodeSandbox={false} showRefreshButton={false} />
+            <div className="h-full w-full">
+              <SandpackPreview
+                showOpenInCodeSandbox={false}
+                showRefreshButton={false}
+                style={{ height: '100%', width: '100%' }}
+              />
             </div>
           </SandpackProvider>
         </Card>

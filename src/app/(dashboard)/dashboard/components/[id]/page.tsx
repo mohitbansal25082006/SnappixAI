@@ -22,20 +22,32 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
     where: { 
       id,
       project: {
-        userId
-      }
+        userId,
+      },
     },
     include: {
       project: true,
       versions: {
-        orderBy: { createdAt: 'desc' }
-      }
-    }
+        orderBy: { createdAt: 'desc' },
+      },
+    },
   })
 
   if (!component) {
     notFound()
   }
+
+  // Fix for initialTokens: ensure non-null object
+  const safeDesignTokens =
+    component.designTokens && typeof component.designTokens === 'object'
+      ? (component.designTokens as Record<string, unknown>)
+      : {}
+
+  // Fix for versions: replace null changelog with empty string
+  const safeVersions = component.versions.map((v) => ({
+    ...v,
+    changelog: v.changelog ?? '',
+  }))
 
   return (
     <div className="space-y-6">
@@ -48,16 +60,13 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
         </p>
       </div>
 
-      <LiveEditor 
+      <LiveEditor
         component={component}
         initialCode={component.code}
-        initialTokens={component.designTokens}
+        initialTokens={safeDesignTokens}
       />
-      
-      <VersionHistory 
-        componentId={component.id}
-        versions={component.versions}
-      />
+
+      <VersionHistory componentId={component.id} versions={safeVersions} />
     </div>
   )
 }
