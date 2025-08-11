@@ -3,6 +3,7 @@ import { redirect, notFound } from 'next/navigation'
 import { db } from '@/lib/db'
 import { LiveEditor } from '@/components/live-editor'
 import { VersionHistory } from '@/components/version-history'
+import { ExportModal } from '@/components/export-modal' // Added import
 
 interface ComponentPageProps {
   params: Promise<{
@@ -51,13 +52,21 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
-          {component.name}
-        </h1>
-        <p className="text-slate-600 dark:text-slate-400">
-          From project: {component.project.name}
-        </p>
+      <div className="flex justify-between items-center">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
+            {component.name}
+          </h1>
+          <p className="text-slate-600 dark:text-slate-400">
+            From project: {component.project.name}
+          </p>
+        </div>
+        <div className="flex gap-2">
+          <ExportModal
+            componentId={component.id}
+            componentName={component.name}
+          />
+        </div>
       </div>
 
       <LiveEditor
