@@ -1,0 +1,54 @@
+// This is your Prisma schema file
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  userId      String
+  components  Component[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model Component {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  imageUrl    String
+  code        String
+  designTokens Json
+  projectId   String
+  versions    ComponentVersion[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId])
+}
+
+model ComponentVersion {
+  id          String   @id @default(cuid())
+  version     Int
+  code        String
+  designTokens Json
+  changelog   String?
+  componentId String
+  createdAt   DateTime @default(now())
+
+  component Component @relation(fields: [componentId], references: [id], onDelete: Cascade)
+
+  @@unique([componentId, version])
+  @@index([componentId])
+}
