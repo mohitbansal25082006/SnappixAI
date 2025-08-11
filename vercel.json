@@ -1,8 +1,4 @@
 {
-  "buildCommand": "prisma generate && prisma db push && next build",
-  "env": {
-    "POSTGRES_PRISMA_URL": "@postgres_url",
-    "POSTGRES_URL_NON_POOLING": "@postgres_url",
-    "BLOB_READ_WRITE_TOKEN": "@blob_token"
-  }
+  "buildCommand": "prisma generate && prisma db push && next build"
+  
 }
