@@ -3,16 +3,13 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-export default function DashboardRootPage() {
+export default function DashboardIndex() {
   const router = useRouter();
 
   useEffect(() => {
+    // change to your target route
     router.replace("/dashboard/dashboard");
   }, [router]);
 
-  return (
-    <div className="flex items-center justify-center h-screen">
-      <p className="text-lg text-gray-500">Redirecting...</p>
-    </div>
-  );
+  return <p>Redirecting...</p>;
 }
