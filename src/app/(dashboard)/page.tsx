@@ -3,13 +3,12 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-export default function DashboardIndex() {
+export default function DashboardPage() {
   const router = useRouter();
 
   useEffect(() => {
-    // change to your target route
-    router.replace("/dashboard/dashboard");
+    router.replace("/dashboard");
   }, [router]);
 
-  return <p>Redirecting...</p>;
+  return null; // no visible content, instant redirect
 }
