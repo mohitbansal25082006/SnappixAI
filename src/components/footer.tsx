@@ -1,7 +1,9 @@
+// src/components/footer.tsx
 "use client";
 
 import Link from "next/link";
 import { Github, Twitter, Mail } from "lucide-react";
+import { ThemeToggle } from "@/components/theme-toggle"; // Adjust the path if needed
 
 export function Footer() {
   return (
@@ -20,7 +22,9 @@ export function Footer() {
 
           {/* Navigation */}
           <div>
-            <h4 className="font-semibold mb-3 text-slate-900 dark:text-slate-100">Navigate</h4>
+            <h4 className="font-semibold mb-3 text-slate-900 dark:text-slate-100">
+              Navigate
+            </h4>
             <ul className="space-y-2">
               <li>
                 <Link href="/" className="hover:text-purple-600">
@@ -37,7 +41,9 @@ export function Footer() {
 
           {/* Resources */}
           <div>
-            <h4 className="font-semibold mb-3 text-slate-900 dark:text-slate-100">Resources</h4>
+            <h4 className="font-semibold mb-3 text-slate-900 dark:text-slate-100">
+              Resources
+            </h4>
             <ul className="space-y-2">
               <li>
                 <Link href="/pricing" className="hover:text-purple-600">
@@ -57,10 +63,12 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Social */}
+          {/* Social & Theme Toggle */}
           <div>
-            <h4 className="font-semibold mb-3 text-slate-900 dark:text-slate-100">Follow us</h4>
-            <div className="flex space-x-4">
+            <h4 className="font-semibold mb-3 text-slate-900 dark:text-slate-100">
+              Follow us
+            </h4>
+            <div className="flex items-center space-x-4">
               <a
                 href="https://github.com/mohitbansal25082006/snappixai"
                 target="_blank"
@@ -80,6 +88,7 @@ export function Footer() {
               <a href="mailto:hey@snappix.ai" className="hover:text-purple-600">
                 <Mail size={20} />
               </a>
+              <ThemeToggle />
             </div>
           </div>
         </div>
