@@ -1,5 +1,3 @@
-Here's the consolidated and well-formatted README.md file:
-
 ```markdown
 # 📸 Snappix – AI Design-System Generator
 
@@ -9,7 +7,7 @@ Drop a Figma screenshot → get a **production-ready React component** with **Ta
 
 ## 🚀 Live Demo
 
-**[https://snappix.onrender.com](https://snappix.onrender.com)**
+**[Here](https://snappixai.onrender.com)**
 
 ## 🔥 Features
 
