@@ -257,7 +257,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 <div align="center">
 
-**© 2025 Snappix. All rights reserved.**
+**© 2025 Mohit Bansal. All rights reserved.**
 
 [![Website](https://img.shields.io/badge/Website-snappixai.com-46e3b7?style=for-the-badge)](https://snappixai.onrender.com)
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/mohitbansal25082006/snappixai)
